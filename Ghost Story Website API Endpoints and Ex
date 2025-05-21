@@ -1,0 +1,420 @@
+Ghost Story Website API Endpoints and Example Data
+API Endpoints
+1. Get All Stories
+Endpoint: /api/v1/stories
+Method: GET
+Parameters:
+keyword (optional): Search term
+category (optional): Filter by category
+featured (optional): Filter featured stories
+page (optional): Page number
+per_page (optional): Items per page
+2. Get Story by ID
+Endpoint: /api/v1/stories/:id
+Method: GET
+Parameters:
+count_view (optional): Increment view count
+3. Get Story by Slug
+Endpoint: /api/v1/stories/slug/:slug
+Method: GET
+4. Get Featured Stories
+Endpoint: /api/v1/stories/featured
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+5. Get Stories by Category
+Endpoint: /api/v1/stories/category/:category
+Method: GET
+Parameters:
+page (optional): Page number
+per_page (optional): Items per page
+6. Get Related Stories
+Endpoint: /api/v1/stories/:id/related
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+7. Get Popular Stories
+Endpoint: /api/v1/stories/popular
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+8. Create Story (Admin)
+Endpoint: /api/v1/stories
+Method: POST
+9. Update Story (Admin)
+Endpoint: /api/v1/stories/:id
+Method: PUT
+10. Delete Story (Admin)
+Endpoint: /api/v1/stories/:id
+Method: DELETE
+Example Data
+Example Story Object
+json
+CopyInsert
+{
+  "id": 1,
+  "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+  "slug": "tieng-go-cua-luc-nua-dem",
+  "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy. Đồng hồ điểm 3 giờ sáng, căn nhà vắng lặng bỗng vang lên tiếng gõ cửa...",
+  "content": "<p>Tôi vẫn nhớ như in cái đêm định mệnh ấy. Đồng hồ điểm 3 giờ sáng, căn nhà vắng lặng bỗng vang lên tiếng gõ cửa...</p>",
+  "image": "https://example.com/images/story1.jpg",
+  "category": "truyen-ma-co-that",
+  "tags": ["ma", "nhà hoang", "nửa đêm", "kinh dị"],
+  "author": "Nguyễn Văn A",
+  "authorAvatar": "https://example.com/images/authors/nguyen-van-a.jpg",
+  "views": 1250,
+  "publishedAt": "2025-04-15T08:30:00Z",
+  "updatedAt": "2025-04-16T10:15:00Z",
+  "readingTime": "5 phút",
+  "isFeatured": true,
+  "relatedStories": [2, 5, 8]
+}
+Example Response for Get All Stories
+json
+CopyInsert
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+      "slug": "tieng-go-cua-luc-nua-dem",
+      "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy...",
+      "image": "https://example.com/images/story1.jpg",
+      "category": "truyen-ma-co-that",
+      "tags": ["ma", "nhà hoang", "nửa đêm", "kinh dị"],
+      "author": "Nguyễn Văn A",
+      "views": 1250,
+      "publishedAt": "2025-04-15T08:30:00Z",
+      "readingTime": "5 phút",
+      "isFeatured": true
+    },
+    {
+      "id": 2,
+      "title": "Căn Nhà Số 7",
+      "slug": "can-nha-so-7",
+      "excerpt": "Không ai dám bước chân vào căn nhà số 7 sau khi...",
+      "image": "https://example.com/images/story2.jpg",
+      "category": "truyen-ma-ngan",
+      "tags": ["ma", "căn nhà", "số 7", "kinh dị"],
+      "author": "Trần Thị B",
+      "views": 980,
+      "publishedAt": "2025-04-10T14:20:00Z",
+      "readingTime": "4 phút",
+      "isFeatured": false
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "has_more": true,
+    "per_page": 10,
+    "total": 45,
+    "total_pages": 5
+  }
+}
+Example Response for Featured Stories
+json
+CopyInsert
+[
+  {
+    "id": 1,
+    "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+    "slug": "tieng-go-cua-luc-nua-dem",
+    "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy...",
+    "image": "https://example.com/images/story1.jpg",
+    "category": "truyen-ma-co-that",
+    "views": 1250,
+    "publishedAt": "2025-04-15T08:30:00Z",
+    "isFeatured": true
+  },
+  {
+    "id": 3,
+    "title": "Người Đàn Bà Trong Gương",
+    "slug": "nguoi-dan-ba-trong-guong",
+    "excerpt": "Mỗi đêm, cô ấy lại xuất hiện trong chiếc gương cũ kỹ...",
+    "image": "https://example.com/images/story3.jpg",
+    "category": "truyen-ma-kinh-dien",
+    "views": 1820,
+    "publishedAt": "2025-04-05T09:45:00Z",
+    "isFeatured": true
+  }
+]
+Example Create Story Request
+json
+CopyInsert
+{
+  "title": "Bóng Đen Dưới Gầm Giường",
+  "slug": "bong-den-duoi-gam-giuong",
+  "content": "<p>Đêm đó, tôi thức giấc vì tiếng động lạ phát ra từ gầm giường...</p>",
+  "excerpt": "Đêm đó, tôi thức giấc vì tiếng động lạ phát ra từ gầm giường...",
+  "image": "https://example.com/images/story10.jpg",
+  "category": "truyen-ma-moi",
+  "tags": ["ma", "giường", "đêm khuya", "kinh dị"],
+  "author": "Lê Văn C",
+  "authorAvatar": "https://example.com/images/authors/le-van-c.jpg",
+  "isFeatured": false,
+  "relatedStories": [1, 5, 7]
+}
+Feedback submitted
+Me
+
+tách biệt list api for admin and api for front-end
+
+Revert
+Ghost Story Website API Endpoints and Example Data
+Frontend API Endpoints (Public)
+1. Get All Stories
+Endpoint: /api/v1/stories
+Method: GET
+Parameters:
+keyword (optional): Search term
+category (optional): Filter by category
+featured (optional): Filter featured stories
+page (optional): Page number
+per_page (optional): Items per page
+Example Response:
+json
+CopyInsert
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+      "slug": "tieng-go-cua-luc-nua-dem",
+      "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy...",
+      "image": "https://example.com/images/story1.jpg",
+      "category": "truyen-ma-co-that",
+      "tags": ["ma", "nhà hoang", "nửa đêm", "kinh dị"],
+      "author": "Nguyễn Văn A",
+      "views": 1250,
+      "publishedAt": "2025-04-15T08:30:00Z",
+      "readingTime": "5 phút"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "has_more": true,
+    "per_page": 10,
+    "total": 45,
+    "total_pages": 5
+  }
+}
+2. Get Story by ID
+Endpoint: /api/v1/stories/:id
+Method: GET
+Parameters:
+count_view (optional): Increment view count
+Example Response:
+json
+CopyInsert
+{
+  "id": 1,
+  "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+  "slug": "tieng-go-cua-luc-nua-dem",
+  "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy...",
+  "content": "<p>Tôi vẫn nhớ như in cái đêm định mệnh ấy. Đồng hồ điểm 3 giờ sáng, căn nhà vắng lặng bỗng vang lên tiếng gõ cửa...</p>",
+  "image": "https://example.com/images/story1.jpg",
+  "category": "truyen-ma-co-that",
+  "tags": ["ma", "nhà hoang", "nửa đêm", "kinh dị"],
+  "author": "Nguyễn Văn A",
+  "authorAvatar": "https://example.com/images/authors/nguyen-van-a.jpg",
+  "views": 1250,
+  "publishedAt": "2025-04-15T08:30:00Z",
+  "updatedAt": "2025-04-16T10:15:00Z",
+  "readingTime": "5 phút"
+}
+3. Get Story by Slug
+Endpoint: /api/v1/stories/slug/:slug
+Method: GET
+Example Response: Same as Get Story by ID
+4. Get Featured Stories
+Endpoint: /api/v1/stories/featured
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+Example Response:
+json
+CopyInsert
+[
+  {
+    "id": 1,
+    "title": "Tiếng Gõ Cửa Lúc Nửa Đêm",
+    "slug": "tieng-go-cua-luc-nua-dem",
+    "excerpt": "Tôi vẫn nhớ như in cái đêm định mệnh ấy...",
+    "image": "https://example.com/images/story1.jpg",
+    "category": "truyen-ma-co-that",
+    "views": 1250,
+    "publishedAt": "2025-04-15T08:30:00Z"
+  }
+]
+5. Get Stories by Category
+Endpoint: /api/v1/stories/category/:category
+Method: GET
+Parameters:
+page (optional): Page number
+per_page (optional): Items per page
+Example Response: Same format as Get All Stories
+6. Get Related Stories
+Endpoint: /api/v1/stories/:id/related
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+Example Response:
+json
+CopyInsert
+[
+  {
+    "id": 2,
+    "title": "Căn Nhà Số 7",
+    "slug": "can-nha-so-7",
+    "excerpt": "Không ai dám bước chân vào căn nhà số 7 sau khi...",
+    "image": "https://example.com/images/story2.jpg",
+    "category": "truyen-ma-ngan",
+    "views": 980,
+    "publishedAt": "2025-04-10T14:20:00Z",
+    "readingTime": "4 phút"
+  }
+]
+7. Get Popular Stories
+Endpoint: /api/v1/stories/popular
+Method: GET
+Parameters:
+limit (optional): Number of stories to return
+Example Response: Same format as Get Featured Stories
+8. Get Story Tags
+Endpoint: /api/v1/stories/tags
+Method: GET
+Example Response:
+json
+CopyInsert
+[
+  {
+    "id": 1,
+    "name": "ma",
+    "count": 45
+  },
+  {
+    "id": 2,
+    "name": "nhà hoang",
+    "count": 23
+  }
+]
+9. Get Stories by Tag
+Endpoint: /api/v1/stories/tag/:tag
+Method: GET
+Parameters:
+page (optional): Page number
+per_page (optional): Items per page
+Example Response: Same format as Get All Stories
+Admin API Endpoints
+1. Create Story
+Endpoint: /api/v1/admin/stories
+Method: POST
+Request Body:
+json
+CopyInsert
+{
+  "title": "Bóng Đen Dưới Gầm Giường",
+  "slug": "bong-den-duoi-gam-giuong",
+  "content": "<p>Đêm đó, tôi thức giấc vì tiếng động lạ phát ra từ gầm giường...</p>",
+  "excerpt": "Đêm đó, tôi thức giấc vì tiếng động lạ phát ra từ gầm giường...",
+  "image": "https://example.com/images/story10.jpg",
+  "category": "truyen-ma-moi",
+  "tags": ["ma", "giường", "đêm khuya", "kinh dị"],
+  "author": "Lê Văn C",
+  "authorAvatar": "https://example.com/images/authors/le-van-c.jpg",
+  "isFeatured": false,
+  "relatedStories": [1, 5, 7]
+}
+Example Response: Returns the created story object
+2. Update Story
+Endpoint: /api/v1/admin/stories/:id
+Method: PUT
+Request Body:
+json
+CopyInsert
+{
+  "title": "Bóng Đen Dưới Gầm Giường (Cập nhật)",
+  "content": "<p>Đêm đó, tôi thức giấc vì tiếng động lạ phát ra từ gầm giường...</p>",
+  "tags": ["ma", "giường", "đêm khuya", "kinh dị", "bóng đen"],
+  "isFeatured": true
+}
+Example Response: Returns the updated story object
+3. Delete Story
+Endpoint: /api/v1/admin/stories/:id
+Method: DELETE
+Example Response:
+json
+CopyInsert
+{
+  "success": true,
+  "message": "Story deleted successfully"
+}
+4. Get All Stories (Admin)
+Endpoint: /api/v1/admin/stories
+Method: GET
+Parameters:
+All parameters from the public endpoint
+status (optional): Filter by status (draft, published, archived)
+Example Response: Similar to public endpoint but includes additional admin fields
+5. Update Story Status
+Endpoint: /api/v1/admin/stories/:id/status
+Method: PUT
+Request Body:
+json
+CopyInsert
+{
+  "status": "published"
+}
+Example Response: Returns the updated story object
+6. Upload Story Image
+Endpoint: /api/v1/admin/upload/story-image
+Method: POST
+Request: Multipart form data with image file
+Example Response:
+json
+CopyInsert
+{
+  "url": "https://example.com/images/uploads/story15.jpg",
+  "filename": "story15.jpg"
+}
+7. Bulk Actions
+Endpoint: /api/v1/admin/stories/bulk
+Method: POST
+Request Body:
+json
+CopyInsert
+{
+  "action": "delete",
+  "ids": [10, 11, 12]
+}
+Example Response:
+json
+CopyInsert
+{
+  "success": true,
+  "message": "3 stories deleted successfully"
+}
+8. Get Story Statistics
+Endpoint: /api/v1/admin/statistics/stories
+Method: GET
+Example Response:
+json
+CopyInsert
+{
+  "total": 45,
+  "by_category": {
+    "truyen-ma-co-that": 15,
+    "truyen-ma-ngan": 12,
+    "truyen-ma-kinh-dien": 8,
+    "truyen-ma-moi": 10
+  },
+  "views": {
+    "total": 25680,
+    "average": 570,
+    "top_story_id": 3
+  },
+  "recent": {
+    "created": 5,
+    "updated": 8
+  }
+}
