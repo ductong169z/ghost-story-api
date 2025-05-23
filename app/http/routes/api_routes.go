@@ -26,6 +26,9 @@ func ApiRoutes(r core.IFly) {
 	r.Group(prefixAPI, func(apiRouter *core.Group) {
 		// curl -v -X GET http://localhost:7789/api/v1/info | jq
 		apiRouter.GET("/info", api.NewDefaultApi())
+				/* ============================ Guest Group ============================ */
+		apiRouter.GET("/articles", article.NewListArticlesApi())
+		apiRouter.GET("/articles/{slug}", article.NewGetArticleBySlugApi())
 
 		/* ============================ Auth Group ============================ */
 		authRoute.RegisterApi(apiRouter)
@@ -67,9 +70,5 @@ func ApiRoutes(r core.IFly) {
 				articleRouter.DELETE("/{id}", adminArticle.NewDeleteArticleApi())
 			})
 		})
-
-		/* ============================ Guest Group ============================ */
-		apiRouter.GET("/articles", article.NewListArticlesApi())
-		apiRouter.GET("/articles/{slug}", article.NewGetArticleBySlugApi())
 	})
 }
