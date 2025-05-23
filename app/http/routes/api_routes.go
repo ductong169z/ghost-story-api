@@ -26,9 +26,11 @@ func ApiRoutes(r core.IFly) {
 	r.Group(prefixAPI, func(apiRouter *core.Group) {
 		// curl -v -X GET http://localhost:7789/api/v1/info | jq
 		apiRouter.GET("/info", api.NewDefaultApi())
-				/* ============================ Guest Group ============================ */
-		apiRouter.GET("/articles", article.NewListArticlesApi())
-		apiRouter.GET("/articles/{slug}", article.NewGetArticleBySlugApi())
+		/* ============================ Guest Group ============================ */
+		apiRouter.Group("articles", func(guestRouter *core.Group) {
+			guestRouter.GET("", article.NewListArticlesApi())
+			guestRouter.GET("/{slug}", article.NewGetArticleBySlugApi())
+		})
 
 		/* ============================ Auth Group ============================ */
 		authRoute.RegisterApi(apiRouter)
