@@ -27,17 +27,19 @@ func ApiRoutes(r core.IFly) {
 		// curl -v -X GET http://localhost:7789/api/v1/info | jq
 		apiRouter.GET("/info", api.NewDefaultApi())
 
-		// Public routes (no authentication required)
+		/* ===================== Public Routes ===================== */
+		// These routes are accessible without authentication
 		apiRouter.Group("articles", func(publicRouter *core.Group) {
 			publicRouter.GET("", article.NewListArticlesApi())
 			publicRouter.GET("/{slug:[a-z0-9-]+}", article.NewGetArticleBySlugApi())
 		})
 
-		/* ============================ Auth Group ============================ */
+		/* ==================== Authentication ==================== */
+		// Handles user authentication and authorization
 		authRoute.RegisterApi(apiRouter)
 
-		// Protected routes (require authentication)
-
+		/* ==================== Admin Routes ====================== */
+		// These routes require admin privileges
 		apiRouter.Group("/admin", func(adminRouter *core.Group) {
 			adminRouter.Use(middleware.CheckRolesMiddleware(
 				[]types.Role{types.RoleAdmin},
@@ -60,7 +62,8 @@ func ApiRoutes(r core.IFly) {
 				userRouter.GET("/profile", user.NewGetUserProfileApi())
 			})
 
-			/* ============================ Admin Article Group ============================ */
+			/* ==================== Article Management ================== */
+			// Article management endpoints (admin-only)
 			adminRouter.Group("/articles", func(articleRouter *core.Group) {
 				// Allow admin permission to access `/articles/*` API
 				articleRouter.Use(middleware.CheckRolesMiddleware(
