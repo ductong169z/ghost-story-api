@@ -29,8 +29,6 @@ func RegisterApi(apiRouter *core.Group) {
 		prefixAPI+"/auth/refresh",
 		prefixAPI+"/password/forgot",
 		prefixAPI+"/password/reset",
-		prefixAPI+"/articles",
-		prefixAPI+"/articles/{slug}",
 	))
 
 	// Frontend APIs
