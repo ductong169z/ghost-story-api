@@ -21,3 +21,7 @@ type UpdateCategory struct {
 	Description string `json:"description" example:"Latest news and updates in the technology industry" validate:"omitempty" doc:"Description of the category (optional)"`
 	ParentID    int    `json:"parent_id" example:"1" validate:"omitempty,gte=1" doc:"ID of the parent category (optional, greater than or equal to 1)"`
 }
+
+type CategoryFilter struct {
+	Filter
+}

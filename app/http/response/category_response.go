@@ -1,6 +1,8 @@
 package response
 
-import "time"
+import (
+	"time"
+)
 
 // Category response structure for API
 // The instance should be created from models.Category.ToResponse()
